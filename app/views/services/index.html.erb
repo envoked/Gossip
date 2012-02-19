@@ -1,0 +1,23 @@
+<h1>All services</h1>
+
+<table>
+  <tr>
+    <th>Keyword</th>
+    <th>Url</th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @services.each do |service| %>
+  <tr>
+    <td><%= service.keyword %></td>
+    <td><%= service.url %></td>
+    <td><%= link_to 'Edit', edit_service_path(service) %></td>
+    <td><%= link_to 'Delete', service, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Service', new_service_path %>
