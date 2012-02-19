@@ -59,7 +59,7 @@ class ServicesController < ApplicationController
     @service = Service.find_by_keyword(params[:keyword])
     respond_to do |format|
       if @service
-        @url = URI("#{@service.url}?data=#{URI.encode(params[:data])}")
+        @url = URI(@service.url.gsub("{data}", URI.encode(params[:data])))
         logger.info @url
         @response = Net::HTTP.get(@url) rescue "Something went Wrong"
         format.html{render :text => @response}
