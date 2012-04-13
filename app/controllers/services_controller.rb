@@ -1,4 +1,5 @@
 require 'net/http'
+require 'base64'
 class ServicesController < ApplicationController
   # GET /services
   # GET /services.json
@@ -59,10 +60,10 @@ class ServicesController < ApplicationController
     @service = Service.find_by_keyword(params[:keyword])
     respond_to do |format|
       if @service
-        @url = URI(@service.url.gsub("{data}", URI.encode(params[:data])))
+        @url = URI(@service.url.gsub("{data}",params[:data]))
         logger.info @url
         @response = Net::HTTP.get(@url) rescue "Something went Wrong"
-        format.html{render :text => @response}
+        format.html{render :text => @response }
       else
         format.html {render :text=> "The keyword was not found."}
       end
